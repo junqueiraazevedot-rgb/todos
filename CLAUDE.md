@@ -8,6 +8,14 @@ O plano completo, com módulos, fluxos, modelo de dados e fases, está em `PLANO
 - **Fase 0 — Fundação**: implementada (scaffold PWA, login por link mágico, `familias`, `usuarios_familia`, `membros`, `fichas_saude` com RLS, cadastro dos membros, deploy por FTP).
 - Próxima: **Fase 1 — Consultas e Drive**. Trabalhe uma fase por vez; ao concluir, marque os itens em `PLANO.md`.
 
+## Projeto Supabase
+
+- Projeto **`financas`** (ref `ylsqsusubspbbqkacucf`, região `sa-east-1`), na organização pessoal "Carlos Supabase". URL: `https://ylsqsusubspbbqkacucf.supabase.co`.
+- O projeto é **compartilhado** com outros apps pessoais (o app de finanças usa tabelas e funções com prefixo `financ_`, e um job no pg_cron). **Nunca altere nem apague objetos `financ_*`.**
+- Auth (`auth.users`) também é compartilhado: um usuário do app de finanças só vê dados de saúde se estiver em `usuarios_familia`.
+- Tabelas do plano com nomes genéricos que podem colidir com outros apps (`documentos`, `despesas`, `notificacoes`, `locais`, `push_subscriptions`…) devem ganhar o prefixo `saude_` ao serem criadas. As da Fase 0 (`familias`, `usuarios_familia`, `membros`, `fichas_saude`) ficam como estão.
+- Migrations são aplicadas pelo conector do Supabase (`apply_migration`). Depois de aplicar, renomeie o arquivo local para a mesma versão (timestamp) listada em `list_migrations`, para o repositório e o banco ficarem iguais. Rode `get_advisors` (security) após cada DDL.
+
 ## Stack
 
 | Camada | Tecnologia |
